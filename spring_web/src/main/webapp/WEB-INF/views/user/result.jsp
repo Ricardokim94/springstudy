@@ -8,11 +8,12 @@
 </head>
 <body>
 <h1>
-	반가워요
+	결과 페이지
 </h1>
+ ${msg} <br>
+ 아이디 :${member.id } <br>
+ 이름 : ${member.name }
+ 게시물 제목 : ${board.title}
 
-<P>  The time on the server is ${serverTime}. </P>
-
-<img src ="/img/기도.jpg">
 </body>
 </html>

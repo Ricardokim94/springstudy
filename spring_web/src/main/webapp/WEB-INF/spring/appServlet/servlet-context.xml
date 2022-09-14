@@ -18,7 +18,7 @@
 
 	<!-- controller에서 return 값이 view페이지임 -->
 	<!-- 'prefix' + return값 + 'suffix' 조립해서 뷰페이지를 찾아가는 거임 -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<beans:property name="prefix" value="/WEB-INF/views/user/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>

@@ -8,11 +8,9 @@
 </head>
 <body>
 <h1>
-	반가워요
+	doA
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
 
-<img src ="/img/기도.jpg">
 </body>
 </html>
