@@ -19,7 +19,7 @@
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2 style=>회원가입</h2>
+      <h2 style=>${msg }</h2>
       <hr>
 	  <form name="memRegForm" method="post" action="/member/register" onsubmit="return formCheck()">
 		  	<div class ="who">

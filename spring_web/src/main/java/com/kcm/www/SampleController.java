@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kcm.dto.Board;
@@ -18,8 +20,16 @@ public class SampleController {
 	
 	
 	@RequestMapping("doA") //매핑을 해보자! //doA라는 jsp를 만들고!
-	public void doo() {		//간단하게 회원가입form같은거 띠울때 사용!! 데이터를 넘길 필요가 없으니까
-		logger.info("doA called~!");
+	public ModelAndView doo() {		//간단하게 회원가입form같은거 띠울때 사용!! 데이터를 넘길 필요가 없으니까
+		
+		ModelAndView mv = new ModelAndView(); //스프링에서 제공하는 클래스
+		
+		mv.setViewName("member/memRegForm"); //뷰페이지 이름을 적어주면됨
+		mv.addObject("msg", "회원가입폼");
+		
+		return mv;
+		
+		
 	}
 	//리턴을 안주면 doA라는 jsp를 찾는다.spring이
 	
@@ -61,8 +71,17 @@ public class SampleController {
 	}
 	
 	
-	//json 데이터	   ex) [ {A,B},{c,d}]
-	
+	//json 라이브러리 추가   ex) [ {A,B},{c,d}]
+	@RequestMapping("doJASON")
+	public @ResponseBody Member dojason() {
+		
+		Member m = new Member(); //dto에 있는 Member
+		m.setId("joy");
+		m.setHobby("테니스, 골프");
+		m.setName("홍길동");
+		
+		return m;
+	}
 	
 }
 
