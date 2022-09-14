@@ -10,7 +10,7 @@
 			<input type="submit" value="login">
 		</form>
 		
-		<p>&nbsp;<a href ="member/memRegForm"> [sign up] |</a>  
+		<p>&nbsp;<a href ="/member/memRegForm"> [sign up] |</a>  
 				 <a href ="#"> [find pw] |</a> 
 				 <a href="javascript:clo()" >[Close]</a>		
 		</p>	

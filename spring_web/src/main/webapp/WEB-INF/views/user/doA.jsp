@@ -10,7 +10,10 @@
 <h1>
 	doA
 </h1>
-
+아이디 :	${member.id}<br>
+이름 : ${member.name }<br>
+게시물제목 : ${board.title }<br>
+메세지 : ${msg}
 
 </body>
 </html>

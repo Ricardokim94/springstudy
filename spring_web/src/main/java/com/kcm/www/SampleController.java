@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kcm.dto.Board;
 import com.kcm.dto.Member;
@@ -23,7 +24,8 @@ public class SampleController {
 	//리턴을 안주면 doA라는 jsp를 찾는다.spring이
 	
 	
-	//리턴타입이 String인 경우
+	//리턴타입이 String인 경우												
+	//@ModelAttribute은 get방식으로 넘어온 값을 자동으로 해당객체를 뷰까지 전달한다.
 	@RequestMapping("doB")
 	public String doB(@ModelAttribute("msg") String message, Model model) {    //객체를 넘기고 싶으면Spring 에서는 Model을 쓴다
 		logger.info("doB called~!");
@@ -38,9 +40,28 @@ public class SampleController {
 		
 		model.addAttribute("member", m); //객체를 넘기는 것 [키 , 값]
 		model.addAttribute(b);
-		model.addAttribute("msg", "곧 점심시간"); //이렇게 해서 데이터를 넘긴다. (키하고 값을넘긴다.)
-		return "result";	//result.jsp를 하나 만들고~
+		//model.addAttribute("msg", "곧 점심시간"); //이렇게 해서 데이터를 넘긴다. (키하고 값을넘긴다.)
+		return "doC";	//result.jsp를 하나 만들고~
 	}
+	
+	@RequestMapping("doC")
+	public String doC(RedirectAttributes rttr) { //RedirectAttributes  = 스프링에서 제공해주는 클래스
+		
+		Member m = new Member(); //dto에 있는 Member
+		m.setId("joy");
+		m.setName("홍길동");
+		
+		Board b = new Board();
+		b.setTitle("안녕자바");
+		
+		rttr.addFlashAttribute(m);
+		rttr.addFlashAttribute(b);
+		
+		return "redirect:/doA";
+	}
+	
+	
+	//json 데이터	   ex) [ {A,B},{c,d}]
 	
 	
 }
