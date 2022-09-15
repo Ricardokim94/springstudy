@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/board/board.css">
+<link rel="stylesheet" href="/css/board.css">
 <title>게시판</title>
 <script src="https://kit.fontawesome.com/236f0b5985.js"
 	crossorigin="anonymous"></script>
@@ -75,7 +75,7 @@
 				</thead>
 
 				<tbody>
-					<c:forEach items="${board}" var="board">
+					<c:forEach items="${boardList}" var="board">
 						<tr style= "cursor : pointer" onclick="location.href='boardDetail.bo?seqno=${ board.getSeqno()}'">
 							<th>${board.no}</th>
 							<th>${board.title}</th>
@@ -93,18 +93,18 @@
 			
 			<div class="pagination">
 				<c:if test="${pageMaker.prev }">
-				 <a href="boardList.bo?currentPage=${pageMaker.startPage-1}&rowPerPage=${pageMaker.cri.rowPerPage}">&laquo;</a>
+				 <a href="/board/boardList?currentPage=${pageMaker.startPage-1}&rowPerPage=${pageMaker.cri.rowPerPage}">&laquo;</a>
 			  	</c:if>
 			  
 			  <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-			  	<a href="/boardList.bo?currentPage=${num}&rowPerPage=${pageMaker.cri.rowPerPage}"
+			  	<a href="/board/boardList?currentPage=${num}&rowPerPage=${pageMaker.cri.rowPerPage}"
 			  	 class="${pageMaker.cri.currentPage == num ? "active" : " " }">${num}</a>
 			  </c:forEach>
 			  
 			<!--    <a class="active" href="#">2</a>-->
 			 
 			  <c:if test="${pageMaker.next }">
-			  <a href="boardList.bo?currentPage=${pageMaker.endPage+1}&rowPerPage=${pageMaker.cri.rowPerPage}">&raquo;</a>
+			  <a href="/board/boardList?currentPage=${pageMaker.endPage+1}&rowPerPage=${pageMaker.cri.rowPerPage}">&raquo;</a>
 			  </c:if>
 			</div>
 		</div>

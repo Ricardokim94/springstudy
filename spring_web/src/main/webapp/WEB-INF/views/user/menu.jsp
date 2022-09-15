@@ -7,7 +7,7 @@
  	<i class="fa-solid fa-otter"></i>
  	<a href="/">Home</a>
   	<a href="http://localhost:8080/ex.html">Join us</a>
-  	<a href="/board/boardList.bo">board</a>
+  	<a href="/board/boardList">board</a>
 
 	<c:if test="${loginuser != null }">
 	 	<a id="login" href=/member/mypage.jsp>마이페이지</a>
