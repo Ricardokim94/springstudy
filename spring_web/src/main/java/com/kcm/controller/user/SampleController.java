@@ -77,11 +77,10 @@ public class SampleController {
 		
 		Member m = new Member(); //dto에 있는 Member
 		m.setId("joy");
-<<<<<<< HEAD
+
 //		m.setHobby_str("테니스, 골프");
-=======
+
 		m.setHobby_str("테니스, 골프");
->>>>>>> branch 'master' of https://github.com/Ricardokim94/springstudy.git
 		m.setName("홍길동");
 		
 		return m;
