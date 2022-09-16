@@ -3,50 +3,48 @@ package com.kcm.common;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kcm.dao.MemberDao;
 
 
-@WebServlet("/login")
-public class Login extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public Login() {
-        super();
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+@Controller
+public class Login {
+	
+	private static Logger log = LoggerFactory.getLogger(Login.class);
+	
+	@PostMapping("login")
+	public String login(@RequestParam("id") String id, 
+						@RequestParam("pw") String pw,
+						HttpSession sess,
+						RedirectAttributes model) { //넘기는 값은 Model쓴다.
 		MemberDao dao = new MemberDao();
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
 		Map<String, String> map = dao.loginProc(id, pw);
+		String viewPage = null;
 		
 		switch (map.get("login")) {
 		case "ok" :	//로그인 성공
 			//세션설정!
-			HttpSession sess = request.getSession();
 			LoginImpl loginUser = new LoginImpl(id, map.get("name"));
 			sess.setAttribute("loginUser", loginUser);
-			request.setAttribute("msg", "loginOk");
+			model.addFlashAttribute("msg", "loginOk");
+			viewPage = "redirect:/";
 			break; 
 		default: //로그인실패
-			request.setAttribute("msg", "loginFail");
+			model.addFlashAttribute("msg", "loginFail");
+			viewPage = "index";
 		
 		}
-		//뷰페이지에 던져야 되니까
-		RequestDispatcher rd = request.getRequestDispatcher("/");
-		rd.forward(request, response);
+		return viewPage;
+		//오류났던것 : "viewPage"를 붙이면 JSP로 넘어간다.
 	}
 
 }

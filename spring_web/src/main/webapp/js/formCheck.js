@@ -11,7 +11,7 @@
 		var x = new XMLHttpRequest();
 		
 		//요청하는것(1번째는 방식 / 2번째는 url /3번째는 비동기식 요청)
-		x.open("get","/idDoubleCheck.do?id=" + id , true);
+		x.open("get","/member/idDoubleCheck?id=" + id , true);
 		x.send();
 
 		x.onreadystatechange = function(){ //상태를 수시로 감지하는 거임
@@ -22,8 +22,8 @@
 			// === : 타입까지 비교하는것
 			if(x.readyState === 4 && x.status === 200){ 	
 				console.log("ok");
-				var rsp = x.responseText.trim();
-				document.getElementById("isIdCheck").value = rsp; //문자 앞뒤공백삭제					
+				var rsp = x.responseText.trim();//문자 앞뒤공백삭제
+				document.getElementById("isIdCheck").value = rsp; 					
 				
 				if(rsp == "0"){
 					msg.innerText ="사용가능한 아이디 입니다";

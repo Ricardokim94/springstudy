@@ -20,8 +20,8 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public int insert(HttpServletRequest req) {
-		return mdo.insertMember(req);
+	public int insert(Member member) {
+		return mdo.insertMember(member);
 	}
 	
 	@Override

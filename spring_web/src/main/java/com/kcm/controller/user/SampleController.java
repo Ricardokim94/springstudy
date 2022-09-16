@@ -77,7 +77,7 @@ public class SampleController {
 		
 		Member m = new Member(); //dto에 있는 Member
 		m.setId("joy");
-		m.setHobby("테니스, 골프");
+		m.setHobby_str("테니스, 골프");
 		m.setName("홍길동");
 		
 		return m;

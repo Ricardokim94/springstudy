@@ -5,10 +5,45 @@ public class Member {
 	private String id;
 	private String name;
 	private String gender;
-	private String hobby;
+	private String[] hobby;		//입력할땐 여기에 담음
+	public String getHobby_str() {
+		return hobby_str;
+	}
+	public void setHobby_str(String hobby_str) {
+		this.hobby_str = hobby_str;
+	}
 	private String wdate;
+	private String eid;			//Dao에 이메일 담아야 되니까 eid 랑 domain만들어줌
+	private String domain;
+	private String pw;
+	private String intro;
+	private String hobby_str; //출력할때 여기에 담음
 	
 	
+	public String getIntro() {
+		return intro;
+	}
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public String getEid() {
+		return eid;
+	}
+	public void setEid(String eid) {
+		this.eid = eid;
+	}
+	public String getDomain() {
+		return domain;
+	}
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 	public String getId() {
 		return id;
 	}
@@ -27,10 +62,10 @@ public class Member {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getHobby() {
+	public String[] getHobby() {
 		return hobby;
 	}
-	public void setHobby(String hobby) {
+	public void setHobby(String[] hobby) {
 		this.hobby = hobby;
 	}
 	public String getWdate() {

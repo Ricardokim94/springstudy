@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,8 +17,6 @@ import com.kcm.service.BoardServiceImp;
 public class BoardController {
 
 	
-private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
-
 	BoardServiceImp b = new BoardServiceImp();
 	
 	@RequestMapping("boardList")
@@ -41,5 +38,5 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 
 		return m;
 	} 
-
+	
 }
