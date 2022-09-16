@@ -10,6 +10,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
 	<context:component-scan base-package="com.kcm.common" />	
+<<<<<<< HEAD
 	<context:component-scan base-package="com.kcm.dao" />
 	<context:component-scan base-package="com.kcm.dto" />
 	<context:component-scan base-package="com.kcm.service" />
@@ -21,4 +22,7 @@
    
    <bean id="memberDao" class="com.kcm.dao.MemberDaoImp"></bean>
    -->
+=======
+   
+>>>>>>> branch 'master' of https://github.com/Ricardokim94/springstudy.git
 </beans>

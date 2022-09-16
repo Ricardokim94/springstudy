@@ -2,6 +2,7 @@ package com.kcm.controller.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,27 @@ public class MemberController {
 	MemberController(MemberService m){
 		this.m = m;	//이러면 new를 안해도 된다 [의존성주입]
 	}
+=======
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kcm.dto.Member;
+import com.kcm.service.MemberService;
+import com.kcm.service.MemberServiceImp;
+
+@Controller
+@RequestMapping("/member/")
+public class MemberController {
+
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	MemberService m = new MemberServiceImp();
+	
+>>>>>>> branch 'master' of https://github.com/Ricardokim94/springstudy.git
 	
 	@RequestMapping("memRegForm")
 	public void memRegForm() {
