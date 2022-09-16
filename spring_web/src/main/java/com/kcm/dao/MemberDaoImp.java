@@ -44,33 +44,21 @@ public class MemberDaoImp implements MemberDao {
          
       
          if(rs.next()) {
-
             if(rs.getString("pw").equals(pw)){ 
-               
                map.put("login", "ok");
                map.put("name", rs.getString("name"));
-               
             } else {
-
                map.put("login", "pwfail"); //패스워드 틀림
-
             }
-            
          } else {
-
             map.put("login", "pwfail");
-
          }
-
          
       } catch (SQLException e) {
-
          e.printStackTrace();
-      
       } finally {
          resourceClose(conn, stmt);
       }
-      
       return map;
 
    }
