@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<context:component-scan base-package="com.kcm.common" />	
+	<context:component-scan base-package="com.kcm.dao" />
+	<context:component-scan base-package="com.kcm.dto" />
+	<context:component-scan base-package="com.kcm.service" />
+   
+	<!-- 생성자를 이용한 의존성 주입  -->   
+   	<!--	 <bean id="memberService" class="com.kcm.service.MemberServiceImp"> 객체이름 + 구현클래스 
+   			<constructor-arg ref="memberDao" />	객체를 쓸때 생성자를 자동으로 쓴다. 
+   	</bean>
+   
+   <bean id="memberDao" class="com.kcm.dao.MemberDaoImp"></bean>
+   -->
+</beans>
