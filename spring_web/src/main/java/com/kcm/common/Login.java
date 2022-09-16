@@ -6,12 +6,14 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kcm.dao.MemberDao;
 import com.kcm.dao.MemberDaoImp;
 
 
@@ -19,6 +21,9 @@ import com.kcm.dao.MemberDaoImp;
 public class Login {
 
    private static final Logger log = LoggerFactory.getLogger(Login.class);
+   
+   @Autowired
+   MemberDao dao;
    
    @PostMapping("login")
    public String login(@RequestParam("id") String id, 
@@ -28,7 +33,7 @@ public class Login {
                   Model m) {
 //방법2   public String login(Member member) {
       
-      MemberDaoImp dao = new MemberDaoImp();
+     // MemberDaoImp dao = new MemberDaoImp();
       
       Map<String, String> map = dao.loginProc(id, pw);
       
