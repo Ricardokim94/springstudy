@@ -33,17 +33,17 @@
 			
 			<!-- 검색하는 부분 -->
 			<div class="search">
-			<form name="search" method="post" action="boardList.bo">
+			<form name="search" method="post" action="/board/boardList">
 				<input type="hidden" name="currentPage" value="${pageMaker.cri.currentPage}" >
 			
-				<select name="search_field">
+				<select name="searchField">
 					<option value="title" 
 					<c:if test="${pageMaker.cri.searchField == 'title'}">selected</c:if>>제목</option>
 					<option value="name"
 					<c:if test="${pageMaker.cri.searchField == 'name'}">selected</c:if>>작성자</option>
 				</select>
 			
-				<input type="text" name="search_text" placeholder="Search..." 
+				<input type="text" name="searchText" placeholder="Search..." 
 					value="${pageMaker.cri.searchText}"> 
 				<input type="button" value="검색" onclick="document.forms['search'].submit()">
 				<!-- 페이지당 레코드수 -->

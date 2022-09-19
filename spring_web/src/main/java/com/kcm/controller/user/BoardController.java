@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kcm.dto.Board;
@@ -28,7 +29,9 @@ public class BoardController {
 	BoardService boardService; 
 	
 	//리스트에 구현을 해봄
-	@GetMapping("boardList")
+		//@GetMapping("boardList")
+		//@PostMapping("boardList")
+	@RequestMapping(value="boardList", method= {RequestMethod.POST, RequestMethod.GET})
 	public String list(Criteria cri, Model model) {
 		String searchfield = cri.getSearchField();
 		String searchText = cri.getSearchText();
@@ -39,9 +42,8 @@ public class BoardController {
 		if(rowPerPage == 0) rowPerPage =3;
 		
 		Criteria cri2 = new Criteria(currentPage, rowPerPage);
-		cri.setSearchField(searchfield);
-		cri.setSearchText(searchText);
-		
+		cri2.setSearchField(searchfield);
+		cri2.setSearchText(searchText);
 		List<Board> board = boardService.list(cri2);
 		
 		model.addAttribute("pageMaker", new Page(boardService.getTotalRec(cri2), cri2)); //페이지분할
