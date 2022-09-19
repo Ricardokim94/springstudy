@@ -13,18 +13,24 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kcm.common.LoginImpl;
 import com.kcm.dao.BoardDao;
+import com.kcm.dao.BoardDaoImp;
 import com.kcm.dto.AttachFile;
 import com.kcm.dto.Board;
 import com.kcm.dto.Criteria;
 
 
 
-
+@Service
 public class BoardServiceImp implements BoardService {	
-	BoardDao boardDao = new BoardDao();
+	
+	@Autowired
+	BoardDao boardDao;
+	
 	private static final String CHARSET = "utf-8";
 
 	@Override
