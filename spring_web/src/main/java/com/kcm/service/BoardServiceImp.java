@@ -27,6 +27,7 @@ import com.kcm.dto.Criteria;
 
 @Service
 public class BoardServiceImp implements BoardService {	
+	
 	@Autowired
 	BoardDao boardDao;
 	
