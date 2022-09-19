@@ -6,14 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kcm.dto.AttachFile;
 import com.kcm.dto.Thumbnail;
 
 
 public interface FileService {
-	
+	//서블릿 기반
 	public AttachFile fileUpload(FileItem item);
+	//spring 기반
+	public AttachFile fileUpload(MultipartFile item);
 	
 	public Thumbnail setThumbnail(File file, String saveFileName);
 	

@@ -151,7 +151,7 @@ public class BoardDaoImp implements BoardDao{  //데이터를 입출력하는 �
 				th.setFileSize(rs.getString("thumb_size"));
 				th.setFilePath(rs.getString("thumb_path"));
 				attachfile.setThumbnail(th);
-			
+				System.out.println("썸네일 : " + th.getFileName());
 				fileList.add(attachfile);
 			}
 				board.setAttachfile(fileList);
@@ -409,6 +409,38 @@ public class BoardDaoImp implements BoardDao{  //데이터를 입출력하는 �
 	         e.printStackTrace();
 	      }
 	   }
+
+	@Override
+	public String insertBoard(Board board) {
+
+		Connection conn = null;///////////////////////
+		CallableStatement stmt = null;
+		String seqno = null; //seqno 넘김
+		
+		   try {
+			   conn = ds.getConnection();
+			   String sql = "call p_insert_board(?,?)";
+			   stmt = conn.prepareCall(sql);
+			   
+			   StructDescriptor st_board = StructDescriptor.createDescriptor("OBJ_BOARD" ,conn); //타입정의한것,오라클연결
+			   Object[] obj_board = {board.getTitle(), board.getContent(), board.getOpen(), board.getId() };
+			   STRUCT board_rec = new STRUCT(st_board, conn, obj_board);
+			   
+			   stmt.setObject(1, board_rec);
+			   stmt.registerOutParameter(2, OracleType.VARCHAR2);
+			   stmt.executeQuery();
+			
+			seqno = stmt.getString(2);
+			
+		} catch (Exception e) {						
+			e.printStackTrace();
+		}finally {///////////////////
+			resourceClose(conn, stmt);
+		}		
+		
+		return seqno; 
+		
+	}
 	
 }
 

@@ -29,4 +29,6 @@ public interface BoardDao {
 	public int getTotalRec(Criteria cri);
 	
 	public Map<String, String> deleteByNo(String seqno);
+
+	public String insertBoard(Board board);
 }

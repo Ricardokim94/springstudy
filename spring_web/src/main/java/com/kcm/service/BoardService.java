@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kcm.dto.Board;
 import com.kcm.dto.Criteria;
 
@@ -16,6 +18,8 @@ public interface BoardService {
 	public Board searchBoard(String seqno);
 	
 	public String insertBoard(HttpServletRequest req, HttpServletResponse resp);
+	
+	public String insertBoard(Board board, MultipartFile files);		//register 쓰려고
 	
 	public String update(HttpServletRequest req, HttpServletResponse resp);
 

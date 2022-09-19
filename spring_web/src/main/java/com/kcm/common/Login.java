@@ -25,7 +25,7 @@ public class Login {
    @Autowired
    MemberDao dao;
    
-   @PostMapping("login")
+   @PostMapping("/login")
    public String login(@RequestParam("id") String id, 
                   @RequestParam("pw") String pw,
                   HttpSession sess,

@@ -15,6 +15,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kcm.common.LoginImpl;
 import com.kcm.dao.BoardDao;
@@ -159,6 +160,14 @@ public class BoardServiceImp implements BoardService {
 					}
 				}
 		}
+	}
+
+	@Override
+	public String insertBoard(Board board,MultipartFile files) {
+
+		FileService fileService = new FileServiceImpl();
+		
+		return boardDao.insert(board, fileService.fileUpload(files));
 	}
 }
 

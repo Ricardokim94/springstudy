@@ -27,7 +27,7 @@
 					<a>게시판</a>
 				</div>
 				<c:if test="${loginUser != null}">
-				<input type="submit" value="등록">
+				<input type="button" onclick="location.href='/board/boardForm'" value="등록">
 				</c:if>
 			</form>
 			
@@ -76,7 +76,7 @@
 
 				<tbody>
 					<c:forEach items="${boardList}" var="board">
-						<tr style= "cursor : pointer" onclick="location.href='boardDetail.bo?seqno=${ board.getSeqno()}'">
+						<tr style= "cursor : pointer" onclick="location.href='/board/detail?seqno=${ board.getSeqno()}'">
 							<th>${board.no}</th>
 							<th>${board.title}</th>
 							<th>${board.wdate}</th>

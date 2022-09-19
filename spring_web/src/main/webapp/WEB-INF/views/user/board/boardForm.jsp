@@ -22,7 +22,7 @@
   <div class="leftcolumn">
 	      <h2>★☆게시판 등록☆★</h2>
 	      
-	      <form name="boardForm" enctype="multipart/form-data" method="post" action="boardReg.bo" onsubmit = "return check(this)">
+	      <form name="boardForm" enctype="multipart/form-data" method="post" action="/board/register" onsubmit = "return check(this)">
 		    <div class="card">
 			     <input type="text" placeholder="제목" name="title">
 				 <input type="radio" name="open" value='Y'> 공개
