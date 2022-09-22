@@ -2,12 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-	http://www.springframework.org/schema/beans 
-	https://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/context 
-	https://www.springframework.org/schema/context/spring-context-4.1.xsd
-	">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring 
+						http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.1.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		<!-- 이걸 해야 spring이 읽는다 -->
@@ -16,14 +15,27 @@
 	<context:component-scan base-package="com.kcm.dto" />
 	<context:component-scan base-package="com.kcm.service" />
    
+	<mybatis-spring:scan base-package="com.kcm.mapper"/>   
    
    <!--id 컨넥션 풀 bean설정  -->
    <!-- 이거 쓰려면 porm.xml에서 spring jbbc라이브러리 추가해줘야함 : maven에서 aritfactid찾으면됨 -->
     <bean id= "dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	   	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-	   	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+	<!--
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	   	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" /> 
+	   	-->
+	   	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+	   	<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
 	   	<property name="username" value="joy" />
 	   	<property name="password" value="cmrikim" />
+   </bean>
+   
+   <!-- mybatis-spring 연동 -->
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+   		<property name="dataSource" ref="dataSource"/> <!-- ref:값을 참조해라 [매개변수임-property]-->
+   		 
+   		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" /> <!-- 경로설정임 -->
+   		
    </bean>
    
    <!--Multipart 사용하려면 이거 써야된다!  -->

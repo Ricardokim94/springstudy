@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 인터페이스 이름(com.kcm.MemberMapper)과 xml의 namespace 속성값이 일치해야된다. -->  
+<mapper namespace="com.kcm.mapper.MemberMapper">
+	 
+	  <!-- select id = "인터페이스 이름과 같아야 한다." -->
+	  <select id="getById" resultType="com.kcm.dto.Member"> <!-- 매게변수 Member타입으로 던짐 -->
+	  	select * from member where id = #{id} <!-- prepareStatment 랑 같은거임 #{}가  --> <!-- 값은 매게변수로 넘긴다.  -->
+	  </select>
+
+</mapper>
