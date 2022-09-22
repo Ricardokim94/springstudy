@@ -25,7 +25,5 @@
 	
 	<!--페키지에서 불러옴  -->
 	<context:component-scan base-package="com.kcm.controller.user" />
-	<context:component-scan base-package="com.kcm.common" />	
-	
 	
 </beans:beans>

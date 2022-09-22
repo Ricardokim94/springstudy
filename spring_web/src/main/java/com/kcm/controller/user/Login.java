@@ -1,4 +1,4 @@
-package com.kcm.common;
+package com.kcm.controller.user;
 
 import java.util.Map;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kcm.common.LoginImpl;
 import com.kcm.dao.MemberDao;
 import com.kcm.dao.MemberDaoImp;
 
