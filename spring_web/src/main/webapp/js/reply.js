@@ -33,12 +33,12 @@ var replyService = (function(){
 		var bno = param.bno;
 		var page = param.page || 1;
 		
-		$.getJSON("/reply/list" + bno + "/" + page + ".json", function(data){
+		$.getJSON("/reply/list/" + bno + "/" + page + ".json", function(data){
 			if(callback){
 				callback(data); //데이터로 결과값을 받겠다.
 			}
 		}).fail(function(xhr, status, err){
-			if(err){
+			if(error){
 				error();
 			}
 		});

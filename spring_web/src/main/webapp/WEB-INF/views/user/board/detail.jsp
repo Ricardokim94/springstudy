@@ -145,6 +145,16 @@
 $(document).ready(function(){
 	console.log(replyService);
 	
+	console.log("==========================");
+	console.log("Reply get LIST");
+	
+	replyService.getList({bno:seqno, page:1}, function(list){
+		for(var i =0, len=list.length || 0; i< len; i++){
+			console.log(list[i]);
+		}
+	});
+	
+	
 	$("#addReplyBtn").on("click", function(e){
 		var comment = document.getElementById("comment").value;
 		
@@ -160,10 +170,11 @@ $(document).ready(function(){
 			document.getElementById("newLine").innerHTML = "<li>" + reply.comment + "</li>";
 		});
 	});
+
+	
 	
 });
 </script>
-
 
 
 
