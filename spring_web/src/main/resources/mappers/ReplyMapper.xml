@@ -10,4 +10,18 @@
 		values (REPLY_SEQ.nextval, #{comment}, #{id}, #{boardNo})
 	</insert>
 	  
+	 <select id="getList" resultType="com.kcm.dto.ReplyVo">
+	 	<![CDATA[
+	 	SELECT * 
+	 	FROM(
+		 	SELECT /*+INDEX(reply PK_REPLY) */
+		 		rownum rn, seqno, content, id,
+		 		TO_CHAR(wdate, 'YYYY-MM-DD HH:MI:SS')as wdate
+		 	FROM reply
+		 	WHERE board_seqno = #{bno}
+		 		AND rownum <= #{cri.currentPage} * #{cri.rowPerPage}
+		 ) WHERE rn > (#{cri.currentPage}-1) * #{cri.rowPerPage}
+		 ]]>
+	 </select> 
+	  
   </mapper>

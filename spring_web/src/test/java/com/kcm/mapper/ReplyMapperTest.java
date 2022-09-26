@@ -1,6 +1,8 @@
 package com.kcm.mapper;
 
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.*;
 
+import com.kcm.dto.Criteria;
 import com.kcm.dto.Reply;
+import com.kcm.dto.ReplyVo;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,18 +25,26 @@ public class ReplyMapperTest {
 	@Autowired
 	private ReplyMapper mapper;
 	
+//	@Test
+//	public void test() {
+//
+//		Reply r = new Reply();
+//		r.setComment("안녕하세요");
+//		r.setBoardNo("50");
+//		r.setId("joy");
+//		
+//		mapper.insert(r);
+//		
+//	}
+	
 	@Test
-	public void test() {
-
-		Reply r = new Reply();
-		r.setComment("안녕하세요");
-		r.setBoardNo("50");
-		r.setId("joy");
-		
-		mapper.insert(r);
-		
+	public void testList() {
+		Criteria cri = new Criteria(1, 5);
+		List<ReplyVo> list = mapper.getList(cri, 51L);
+		for(ReplyVo r : list) {
+			log.info("댓글내용 : " + r.getContent());
+		}
 	}
-
 }
 
 

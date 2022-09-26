@@ -1,11 +1,15 @@
 package com.kcm.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kcm.dto.Criteria;
 import com.kcm.dto.Reply;
+import com.kcm.dto.ReplyVo;
 import com.kcm.mapper.ReplyMapper;
 
 @Service
@@ -20,6 +24,12 @@ public class ReplyServiceImp implements ReplyService {
 	public int register(Reply reply) {
 		log.info("reply register service calles..!!" + reply);
 		return mapper.insert(reply); //int로 받기로 했으니까
+	}
+
+	@Override
+	public List<ReplyVo> getList(Criteria cri, Long bno) {
+		
+		return mapper.getList(cri, bno);
 	}
 
 }
