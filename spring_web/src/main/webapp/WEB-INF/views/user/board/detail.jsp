@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel ="stylesheet" href="/board/board.css">
+	<link rel ="stylesheet" href="/css/board.css">
 	<title>게시판</title>
 	<script src="https://kit.fontawesome.com/236f0b5985.js" crossorigin="anonymous"></script>
 </head>
@@ -46,17 +46,18 @@
 		 	 
 		 	  <hr>
 				 <div class = "cccc">	
-				 	★번호 : ${board.seqno}<hr>
-				 	★작성날짜 : ${board.wdate}<hr>
-				    ★작성자 : ${board.name}<hr>
-				    ★조회수 : ${board.count}<hr>
-				    ★내용 :${board.content}<hr>
+					 ★번호 : ${board.seqno}<hr>
+					 ★작성날짜 : ${board.wdate}<hr>
+					 ★작성자 : ${board.name}<hr>
+					 ★조회수 : ${board.count}<hr>
+					 ★내용 :${board.content}<hr>
 				 	<hr>
-				     <form method = "post" action="replayproc.jsp">
-				     	<input type ="hidden" name="board_seqno" value="${board.seqno}">
-					    <textarea name="comment" placeholder="댓글작성" rows="2" cols="50"></textarea>
-					    <input type = "submit" value = "등록">
-					  </form>	
+					 <!-- 댓글 등록 폼 -->
+					 <div id = "replyInput">
+					    <textarea id="comment" name="comment" placeholder="댓글작성" rows="2" cols="50"></textarea>
+					    <button id="addReplyBtn">댓글등록</button>
+					</div>
+				
 				</div>	
 			 
 				
@@ -85,6 +86,9 @@
 						</c:forEach>
 					</c:if>
 				</div>
+				
+				<p id="newLine" />
+								
 				
 				<div class = reply> 
 			    <c:set value="${board.reply}" var="reply" />
@@ -123,9 +127,45 @@
   </div>
 </div>
 
+
 <%@ include file="../footer.jsp" %>
 
 <%@ include file="../member/login_modal.jsp" %>
+
+<script type="text/javascript" src="/js/reply.js"></script>
+<script>
+/* 즉시실행함수 
+ * (function(){
+	 문장;
+ })
+ */
+ var seqno = '<c:out value="${board.seqno}" />';
+ var id = '<c:out value="${user.id}" />';
+ 
+$(document).ready(function(){
+	console.log(replyService);
+	
+	$("#addReplyBtn").on("click", function(e){
+		var comment = document.getElementById("comment").value;
+		
+		var reply = {
+				boardNo : seqno,
+				id:id,
+				comment:comment
+		};
+		
+		replyService.add(reply, function(result){
+			alert("댓글이 등록되었습니다." + result);
+			document.getElementById("comment").value = "";
+			document.getElementById("newLine").innerHTML = "<li>" + reply.comment + "</li>";
+		});
+	});
+	
+});
+</script>
+
+
+
 
 </body>
 </html>

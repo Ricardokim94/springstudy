@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  
+  <mapper namespace="com.kcm.mapper.ReplyMapper"> <!-- 인터페이스 만든위치를 똑같이 지정해줘야함 -->
+	  
+	<insert id="insert">
+		insert into reply(seqno, content, id, board_seqno)
+		values (REPLY_SEQ.nextval, #{comment}, #{id}, #{boardNo})
+	</insert>
+	  
+  </mapper>
