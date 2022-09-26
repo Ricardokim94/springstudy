@@ -88,7 +88,11 @@
 				</div>
 				
 				<p id="newLine" />
-								
+				
+				<!-- 댓글 리크스 출력 영역 -->				
+				<div id="reply-ul">
+
+				</div>
 				
 				<div class = reply> 
 			    <c:set value="${board.reply}" var="reply" />
@@ -148,11 +152,26 @@ $(document).ready(function(){
 	console.log("==========================");
 	console.log("Reply get LIST");
 	
-	replyService.getList({bno:seqno, page:1}, function(list){
-		for(var i =0, len=list.length || 0; i< len; i++){
-			console.log(list[i]);
-		}
-	});
+	
+	function showList(page){
+		replyService.getList({bno:seqno, page:1}, function(list){
+			
+			/* 댓글이 없는 경우 */
+			if(list == null || list.length == 0){
+				$('#reply-ul').html(""); //아무것도 안보이면됨
+				return;
+			}
+			/* 댓글이 있는 경우 */
+			var str ="";
+			for(var i =0, len=list.length || 0; i< len; i++){
+				console.log(list[i]);
+				str += "<li><div class='replyRow'>" + list[i].rn + " | " + list[i].id ;
+				str += " | " + list[i].wdate + " | " + list[i].content + "</div></li>";
+			}
+			$("#reply-ul").html(str);
+		});
+	}
+	
 	
 	
 	$("#addReplyBtn").on("click", function(e){
