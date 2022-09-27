@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kcm.dto.Criteria;
@@ -29,6 +30,7 @@ public class ReplyController {
 	@Autowired
 	ReplyService service;
 	
+	
 	@PostMapping(value = "add",
 				 consumes = "application/json",
 				 produces = {MediaType.TEXT_PLAIN_VALUE})
@@ -38,6 +40,7 @@ public class ReplyController {
 		return rs == 1 ? new ResponseEntity<>("성공", HttpStatus.OK)
 					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 				
 	@GetMapping(value="/list/{bno}/{page}",
 				produces = {MediaType.APPLICATION_ATOM_XML_VALUE,
@@ -55,9 +58,29 @@ public class ReplyController {
 					
 	}
 	
-}
+	
+	@GetMapping(value="{rno}", 
+				produces = {MediaType.APPLICATION_XML_VALUE,
+							MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<ReplyVo> get(@PathVariable("rno") Long rno){
+		log.info("get_reply : " + rno);
+		return new ResponseEntity<>(service.get(rno), HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
+					value = "{rno}",
+					produces = "text/plain; charset=utf-8")
+	public ResponseEntity<String> modify(@PathVariable("rno") Long rno,
+										 @RequestBody ReplyVo vo){
+		log.info("----------@@@@@@@@@@@@@@@@@@@@@@------------------------");
+		log.info("rno : " + vo.getSeqno());
+		log.info("content : " + vo.getContent());
+		return service.modify(vo) == 1 ? new ResponseEntity<>("댓글 수정완료",HttpStatus.OK) :
+										 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
-
+	}
 
 
 

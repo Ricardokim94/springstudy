@@ -32,4 +32,14 @@ public class ReplyServiceImp implements ReplyService {
 		return mapper.getList(cri, bno);
 	}
 
+	@Override
+	public ReplyVo get(Long rno) {
+		return mapper.read(rno);
+	}
+
+	@Override
+	public int modify(ReplyVo vo) {
+		return mapper.update(vo);
+	}
+
 }

@@ -15,4 +15,8 @@ public interface ReplyMapper {
 	public List<ReplyVo> getList(
 			@Param("cri")Criteria cri, 
 			@Param("bno") Long bno);
+
+	public ReplyVo read(Long rno);
+
+	public int update(ReplyVo vo);
 }

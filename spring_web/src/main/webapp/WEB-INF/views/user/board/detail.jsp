@@ -87,11 +87,15 @@
 					</c:if>
 				</div>
 				
-				<p id="newLine" />
 				
 				<!-- 댓글 리크스 출력 영역 -->				
-				<div id="reply-ul">
-
+				<div id="reply-list">
+					<ul class="reply_ul">
+						<li data-rno='45'><!-- data-변수이름 -->
+							<div>작성자 | 작성일자 | 댓글내용</div>
+						</li>
+					</ul>
+										
 				</div>
 				
 				<div class = reply> 
@@ -136,6 +140,25 @@
 
 <%@ include file="../member/login_modal.jsp" %>
 
+
+
+  <!-- 로그인창 만들기  -->
+<div id ="reply_modal">
+	<div class ="modal-content">
+		<h2>댓글</h2>
+		<button id="modalCloseBtn" style="float: right; font_size:25px">&#10062;</button>
+		
+		<textarea name="content" style="width:300px; height:75px;"></textarea>
+		
+		<button id="replyModifyBtn">댓글수정</button>  
+		<button id=replyDeleteBtn >댓글삭제</button> 
+		</p>	
+	</div>
+</div>
+
+
+
+
 <script type="text/javascript" src="/js/reply.js"></script>
 <script>
 /* 즉시실행함수 
@@ -152,23 +175,61 @@ $(document).ready(function(){
 	console.log("==========================");
 	console.log("Reply get LIST");
 	
+	var modal = $("#reply_modal");
+	var modal_content = modal.find("textarea[name='content']");
 	
+	modal.hide();
+	
+	/* 모달 닫기 버튼 */
+	$("#modalCloseBtn").on("click", function(e){
+		modal.hide();
+	});
+	//ul이라는 테그에 li부분이 클릭이 되면 실행이 되어라!
+	$(".reply_ul").on("click", "li", function(e){
+		var rno = $(this).data("rno");
+		replyService.get(rno, function(data){
+			console.log("REPLY GET DATA");
+			console.log("댓글"+ rno + "번 내용 :" + data.content);
+			modal_content.val(data.content);
+			modal.data("rno", data.seqno);
+		});
+		modal.show();
+	});
+	
+	//댓글 수정버튼 클릭 시
+	$("#replyModifyBtn").on("click", function(e){
+		console.log("댓글 수정 번호 : " + modal.data("rno"));
+		console.log("댓글 수정 내용 : " + modal_content.val());
+
+		var reply ={seqno : modal.data("rno"),
+					content : modal_content.val()};
+		
+		 replyService.update(reply, function(result){
+			alert(result);
+			modal.hide();
+			showList(1);
+		 });
+	});
+	
+	
+	
+	showList(1);
 	function showList(page){
 		replyService.getList({bno:seqno, page:1}, function(list){
 			
 			/* 댓글이 없는 경우 */
 			if(list == null || list.length == 0){
-				$('#reply-ul').html(""); //아무것도 안보이면됨
+				$(".reply_ul").html(""); //아무것도 안보이면됨
 				return;
 			}
 			/* 댓글이 있는 경우 */
 			var str ="";
 			for(var i =0, len=list.length || 0; i< len; i++){
 				console.log(list[i]);
-				str += "<li><div class='replyRow'>" + list[i].rn + " | " + list[i].id ;
+				str += "<li data-rno='" + list[i].seqno +"'><div class='replyRow'>" + list[i].rn + " | " + list[i].id ;
 				str += " | " + list[i].wdate + " | " + list[i].content + "</div></li>";
 			}
-			$("#reply-ul").html(str);
+			$(".reply_ul").html(str);
 		});
 	}
 	
@@ -189,8 +250,6 @@ $(document).ready(function(){
 			document.getElementById("newLine").innerHTML = "<li>" + reply.comment + "</li>";
 		});
 	});
-
-	
 	
 });
 </script>

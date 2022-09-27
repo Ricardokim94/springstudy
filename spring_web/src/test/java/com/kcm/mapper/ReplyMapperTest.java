@@ -37,13 +37,23 @@ public class ReplyMapperTest {
 //		
 //	}
 	
+//	@Test
+//	public void testList() {
+//		Criteria cri = new Criteria(1, 5);
+//		List<ReplyVo> list = mapper.getList(cri, 51L);
+//		for(ReplyVo r : list) {
+//			log.info("댓글내용 : " + r.getContent());
+//		}
+//	}
+//	
 	@Test
-	public void testList() {
-		Criteria cri = new Criteria(1, 5);
-		List<ReplyVo> list = mapper.getList(cri, 51L);
-		for(ReplyVo r : list) {
-			log.info("댓글내용 : " + r.getContent());
-		}
+	public void testupdate() {
+		
+		ReplyVo vo = new ReplyVo(); //생성자 호출하고
+		vo.setSeqno(45L); //아무거나 댓글 seqno있는것
+		vo.setContent("댓글 수정합니다");
+		int count = mapper.update(vo);
+		log.info("update count : " + count);
 	}
 }
 

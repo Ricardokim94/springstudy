@@ -10,7 +10,7 @@
 		values (REPLY_SEQ.nextval, #{comment}, #{id}, #{boardNo})
 	</insert>
 	  
-	 <select id="getList" resultType="com.kcm.dto.ReplyVo">
+	<select id="getList" resultType="com.kcm.dto.ReplyVo">
 	 	<![CDATA[
 	 	SELECT * 
 	 	FROM(
@@ -22,6 +22,15 @@
 		 		AND rownum <= #{cri.currentPage} * #{cri.rowPerPage}
 		 ) WHERE rn > (#{cri.currentPage}-1) * #{cri.rowPerPage}
 		 ]]>
-	 </select> 
+	</select> 
+	  
+	<select id="read" resultType="com.kcm.dto.ReplyVo">
+		SELECT * FROM reply WHERE seqno = #{rno}
+	</select>
+	  
+	<update id = "update"> 
+		UPDATE reply SET content=#{content} WHERE seqno = #{seqno}
+	</update> 
+	  
 	  
   </mapper>

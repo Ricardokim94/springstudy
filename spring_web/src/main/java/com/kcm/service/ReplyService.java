@@ -11,4 +11,8 @@ public interface ReplyService {
 	public int register(Reply reply) ;
 
 	public List<ReplyVo> getList(Criteria cri, Long bno);
+
+	public ReplyVo get(Long rno);
+
+	public int modify(ReplyVo vo);
 }

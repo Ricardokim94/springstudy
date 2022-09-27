@@ -44,9 +44,47 @@ var replyService = (function(){
 		});
 	}
 	
+	//함수추가
+	function get(rno, callback, error){
+		$.get("/reply/" + rno + ".json", function(result){
+			if(callback){
+				callback(result);
+			}
+		}).fail(function(xhr, status, err){
+			if(error){
+				error();
+			}
+		});
+	}
+	//댓글 수정
+	function update(reply, callback, error){
+		console.log("수정 댓글 : " + reply.seqno);
+		$.ajax({
+			type : 'put',
+			url : "/reply/" + reply.seqno,
+			data : JSON.stringify(reply),
+			contentType : "application/json; charset=utf-8",
+			
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+			},
+			
+			error : function(){
+				if(error){
+					error(er);
+				}
+			}
+		});
+	}
+	
 	
 	return {
 		add:add, 
-		getList : getList
+		getList : getList,
+		get : get,
+		update : update
 	};
 })();
+
