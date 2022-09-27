@@ -55,6 +55,15 @@ public class ReplyMapperTest {
 		int count = mapper.update(vo);
 		log.info("update count : " + count);
 	}
+	
+	@Test
+	public void testdelete() {
+		
+		Long rno = 45L;
+		int count = mapper.delete(rno);
+		log.info("delete : " + count);
+	}
+	
 }
 
 

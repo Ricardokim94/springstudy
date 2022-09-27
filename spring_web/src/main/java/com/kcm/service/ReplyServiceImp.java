@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kcm.dto.Criteria;
 import com.kcm.dto.Reply;
+import com.kcm.dto.ReplyPageDTO;
 import com.kcm.dto.ReplyVo;
 import com.kcm.mapper.ReplyMapper;
 
@@ -40,6 +41,18 @@ public class ReplyServiceImp implements ReplyService {
 	@Override
 	public int modify(ReplyVo vo) {
 		return mapper.update(vo);
+	}
+
+	@Override
+	public int remove(Long rno) {
+		return mapper.delete(rno);
+	}
+
+	@Override
+	public ReplyPageDTO getListPage(Criteria cri, Long bno) {
+		return new ReplyPageDTO(
+								mapper.getCountByBno(bno),
+								mapper.getList(cri, bno));
 	}
 
 }

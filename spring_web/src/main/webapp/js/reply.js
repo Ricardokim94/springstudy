@@ -6,6 +6,7 @@ console.log("Reply Module start");
 
 var replyService = (function(){
 	
+	//댓글등록
 	function add(reply, callback){
 		console.log("reply add....");
 
@@ -28,7 +29,7 @@ var replyService = (function(){
 		});
 	}
 	
-	
+	//댓글리스트
 	function getList(param, callback, error){
 		var bno = param.bno;
 		var page = param.page || 1;
@@ -78,13 +79,32 @@ var replyService = (function(){
 			}
 		});
 	}
+	//댓글삭제
+	function remove(rno, callback, error){
+		$.ajax({
+			type : 'delete',
+			url : "/reply/" + rno,
+			
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er){
+				if(error){
+					error(er);
+				}
+			}
+		});
+	}
 	
 	
 	return {
 		add:add, 
 		getList : getList,
 		get : get,
-		update : update
+		update : update,
+		remove : remove
 	};
 })();
 

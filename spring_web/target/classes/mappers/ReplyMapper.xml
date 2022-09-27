@@ -4,6 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
   
   <mapper namespace="com.kcm.mapper.ReplyMapper"> <!-- 인터페이스 만든위치를 똑같이 지정해줘야함 -->
+	 
+	<select id="getCountByBno" resultType="int"> 
+		SELECT count(seqno) FROM reply WHERE board_seqno = #{bno}
+	</select> 
 	  
 	<insert id="insert">
 		insert into reply(seqno, content, id, board_seqno)
@@ -31,6 +35,10 @@
 	<update id = "update"> 
 		UPDATE reply SET content=#{content} WHERE seqno = #{seqno}
 	</update> 
+	  
+	 <delete id = "delete">
+	 	DELETE from reply WHERE seqno = #{rno} 
+	 </delete> 
 	  
 	  
   </mapper>

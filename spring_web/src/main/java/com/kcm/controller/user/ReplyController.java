@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kcm.dto.Criteria;
 import com.kcm.dto.Reply;
+import com.kcm.dto.ReplyPageDTO;
 import com.kcm.dto.ReplyVo;
 import com.kcm.service.ReplyService;
 
@@ -33,11 +35,11 @@ public class ReplyController {
 	
 	@PostMapping(value = "add",
 				 consumes = "application/json",
-				 produces = {MediaType.TEXT_PLAIN_VALUE})
+				 produces = "text/plain; charset=utf-8")
 	public ResponseEntity<String> create(@RequestBody Reply reply){
 		log.info("ReplyController create() called" + reply);
 		int rs = service.register(reply);
-		return rs == 1 ? new ResponseEntity<>("성공", HttpStatus.OK)
+		return rs == 1 ? new ResponseEntity<>("댓글등록이 완료되었습니다", HttpStatus.OK)
 					: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
@@ -46,7 +48,7 @@ public class ReplyController {
 				produces = {MediaType.APPLICATION_ATOM_XML_VALUE,
 							MediaType.APPLICATION_JSON_UTF8_VALUE
 				})
-	public ResponseEntity<List<ReplyVo>> getList(
+	public ResponseEntity<ReplyPageDTO> getList(
 									@PathVariable("bno") Long bno,
 									@PathVariable("page") int page){
 		log.info("getList.....");
@@ -54,7 +56,7 @@ public class ReplyController {
 		
 		service.getList(cri, bno);
 		
-		return new ResponseEntity<>(service.getList(cri, bno),HttpStatus.OK);
+		return new ResponseEntity<>(service.getListPage(cri, bno),HttpStatus.OK);
 					
 	}
 	
@@ -73,14 +75,25 @@ public class ReplyController {
 					produces = "text/plain; charset=utf-8")
 	public ResponseEntity<String> modify(@PathVariable("rno") Long rno,
 										 @RequestBody ReplyVo vo){
-		log.info("----------@@@@@@@@@@@@@@@@@@@@@@------------------------");
-		log.info("rno : " + vo.getSeqno());
-		log.info("content : " + vo.getContent());
+//		log.info("----------@@@@@@@@@@@@@@@@@@@@@@------------------------");
+//		log.info("rno : " + vo.getSeqno());
+//		log.info("content : " + vo.getContent());
 		return service.modify(vo) == 1 ? new ResponseEntity<>("댓글 수정완료",HttpStatus.OK) :
 										 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
+	
+	@DeleteMapping(value="{rno}", produces ="text/plain; charset=utf-8")
+	public ResponseEntity<String> remove(@PathVariable("rno") Long rno){
+		log.info("delete rno : " + rno);
+		return service.remove(rno) == 1 ? new ResponseEntity<>("댓글 삭제 완료", HttpStatus.OK) :
+										  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	
+	
+	
+
+}
 
 
 

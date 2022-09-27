@@ -95,10 +95,15 @@
 							<div>작성자 | 작성일자 | 댓글내용</div>
 						</li>
 					</ul>
-										
 				</div>
 				
-				<div class = reply> 
+				<!-- 댓글 페이지 리스트 출력 -->
+				<div class="reply-page-list"></div>
+					
+				
+				
+				
+				<%-- <div class = reply> 
 			    <c:set value="${board.reply}" var="reply" />
 			    <c:if test="${reply != null}">
 			    	<c:forEach items="${reply}" var="r" >
@@ -108,7 +113,7 @@
 						<hr>
 			    	</c:forEach>
 			    </c:if>
-		    	</div>  
+		    	</div>   --%>
 		
 		</div>
     
@@ -157,7 +162,7 @@
 </div>
 
 
-
+	
 
 <script type="text/javascript" src="/js/reply.js"></script>
 <script>
@@ -196,6 +201,22 @@ $(document).ready(function(){
 		modal.show();
 	});
 	
+	//댓글등록
+	$("#addReplyBtn").on("click", function(e){
+		var comment = document.getElementById("comment").value;
+		
+		var reply = {
+				boardNo : seqno,
+				id:id,
+				comment:comment
+		};
+		
+		replyService.add(reply, function(result){
+			alert("댓글이 등록되었습니다." + result);
+			showList(1);
+		});
+	});
+	
 	//댓글 수정버튼 클릭 시
 	$("#replyModifyBtn").on("click", function(e){
 		console.log("댓글 수정 번호 : " + modal.data("rno"));
@@ -210,6 +231,19 @@ $(document).ready(function(){
 			showList(1);
 		 });
 	});
+	
+	
+	//댓글삭제버튼 클릭시
+	$("#replyDeleteBtn").on("click", function(e){
+		var rno = modal.data("rno");
+		console.log("댓글 삭제 번호 : " + rno);
+		 replyService.remove(rno, function(result){
+			alert(result);
+			modal.hide();
+			showList(1);
+		}); 
+	});
+	
 	
 	
 	
@@ -233,23 +267,47 @@ $(document).ready(function(){
 		});
 	}
 	
+	showReplyPage(18);
 	
+	//댓글 페이지 리스트 출력
+	function showReplyPage(replyCnt){
+		var currentPage = 1;
+		
+		var endPage = Math.ceil(currentPage/5.0)*5;
+		var startPage = endPage - 4;
+		console.log("endPage : " + endPage);
 	
-	$("#addReplyBtn").on("click", function(e){
-		var comment = document.getElementById("comment").value;
+		var prev = startPage != 1;
+		var next = false;
 		
-		var reply = {
-				boardNo : seqno,
-				id:id,
-				comment:comment
-		};
+		if(endPage * 5 >= replyCnt){
+			endPage = Math.ceil(replyCnt/5.0);
+		}
+		if(endPage * 5 < replyCnt){
+			next = true;
+		}
 		
-		replyService.add(reply, function(result){
-			alert("댓글이 등록되었습니다." + result);
-			document.getElementById("comment").value = "";
-			document.getElementById("newLine").innerHTML = "<li>" + reply.comment + "</li>";
-		});
-	});
+		var str = "<ul class='pageUL'>";
+		if(prev){
+			str += "<li class='page-link'>";
+			str += "<a href='" + (startPage -1) + "'> 이전페이지</a></li>";
+		}
+		
+		for(var i=startPage; i <= endPage; i++){
+			var active = currentPage == i ? "active" : "";
+			str += "<li class ='page-link " + active + "'>";
+			str += "<a href='" + i + "'>" + i + "</a></li>";
+		}
+		if(next){
+			str += "<li class ='page-link'>";
+			str += "<a href='" + (endPage +1) + "'> 다음페이지</a></li>";
+		}
+		
+		str += "</ul>";
+		console.log(str);
+		$(".reply-page-list").html(str);
+	}
+
 	
 });
 </script>
