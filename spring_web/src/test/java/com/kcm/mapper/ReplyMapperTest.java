@@ -58,7 +58,6 @@ public class ReplyMapperTest {
 	
 	@Test
 	public void testdelete() {
-		
 		Long rno = 45L;
 		int count = mapper.delete(rno);
 		log.info("delete : " + count);

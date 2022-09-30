@@ -36,7 +36,7 @@ var replyService = (function(){
 		
 		$.getJSON("/reply/list/" + bno + "/" + page + ".json", function(data){
 			if(callback){
-				callback(data); //데이터로 결과값을 받겠다.
+				callback(data.replyCnt, data.list); //데이터로 결과값을 받겠다.
 			}
 		}).fail(function(xhr, status, err){
 			if(error){

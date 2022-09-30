@@ -52,6 +52,7 @@ public class MemberControllerTest {
 			e.printStackTrace();
 		}
 	}
+	
 
 }
 

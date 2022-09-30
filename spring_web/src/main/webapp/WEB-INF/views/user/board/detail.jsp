@@ -182,8 +182,11 @@ $(document).ready(function(){
 	
 	var modal = $("#reply_modal");
 	var modal_content = modal.find("textarea[name='content']");
+	var currentPage = 1;
 	
 	modal.hide();
+	
+	showList(1);
 	
 	/* 모달 닫기 버튼 */
 	$("#modalCloseBtn").on("click", function(e){
@@ -213,7 +216,8 @@ $(document).ready(function(){
 		
 		replyService.add(reply, function(result){
 			alert("댓글이 등록되었습니다." + result);
-			showList(1);
+			document.getElementById("comment").value = "";
+			showList(-1);
 		});
 	});
 	
@@ -228,7 +232,7 @@ $(document).ready(function(){
 		 replyService.update(reply, function(result){
 			alert(result);
 			modal.hide();
-			showList(1);
+			showList(currentPage);
 		 });
 	});
 	
@@ -240,16 +244,22 @@ $(document).ready(function(){
 		 replyService.remove(rno, function(result){
 			alert(result);
 			modal.hide();
-			showList(1);
+			showList(currentPage);
 		}); 
 	});
 	
 	
-	
-	
-	showList(1);
 	function showList(page){
-		replyService.getList({bno:seqno, page:1}, function(list){
+		replyService.getList({bno:seqno, page:page || 1}, function(replyCnt, list){
+			
+			console.log("댓글 수 :" + replyCnt);
+			
+			//댓글이 새롭게 등록 된 경우
+			if(page == -1){
+				currentPage = Math.ceil(replyCnt/5.0);
+				showList(currentPage);
+				return;
+			} 
 			
 			/* 댓글이 없는 경우 */
 			if(list == null || list.length == 0){
@@ -264,14 +274,17 @@ $(document).ready(function(){
 				str += " | " + list[i].wdate + " | " + list[i].content + "</div></li>";
 			}
 			$(".reply_ul").html(str);
+			
+			showReplyPage(replyCnt, currentPage);
 		});
 	}
 	
-	showReplyPage(18);
+	/* showReplyPage(18); */
 	
 	//댓글 페이지 리스트 출력
-	function showReplyPage(replyCnt){
-		var currentPage = 1;
+	function showReplyPage(replyCnt, currentPage){
+		
+		//var currentPage = 1;
 		
 		var endPage = Math.ceil(currentPage/5.0)*5;
 		var startPage = endPage - 4;
@@ -308,6 +321,15 @@ $(document).ready(function(){
 		$(".reply-page-list").html(str);
 	}
 
+	//댓글 페이지번호 클릭 시
+	$(".reply-page-list").on("click", "li a", function(e){
+		console.log("페이지 클릭----------");
+		e.preventDefault(); //a태그를 눌러도 href링크로 이동하지 않게
+		var clickPage = $(this).attr("href");
+		console.log("currentPage:" + clickPage);
+		currentPage = clickPage;
+		showList(currentPage);
+	});
 	
 });
 </script>
