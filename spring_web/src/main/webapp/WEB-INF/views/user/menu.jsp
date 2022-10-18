@@ -11,6 +11,7 @@
 
 	<c:if test="${loginuser != null }">
 	 	<a id="login" href=/member/mypage.jsp>마이페이지</a>
+	 	 <a id="login" href="/chat">채팅</a>  
 	 	<a id="login" href ="logout.do">Logout</a>
 	 	<a id="login" style ="font-size : 20px;">${loginuser.name} 님 반갑습니다</a>
 	</c:if> 	

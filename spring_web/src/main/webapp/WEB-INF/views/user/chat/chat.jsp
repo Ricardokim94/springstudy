@@ -20,7 +20,7 @@
 	
 	<script>
 	
-	let url = "ws://localhost:8080/mychat";
+	let url = "ws://localhost:8070/mychat";
 	var userid = '${loginuser.id }';
 	
 	var ws;	
@@ -35,7 +35,7 @@
 			console.log('연결생성');
 			
 			var msg = {
-				type : "regiter",	
+				type : "register",	
 			    userid : userid
 			};
 			
@@ -43,15 +43,23 @@
 		};
 		
 		ws.onmessage = function(e){
-			console.log('받은 메세지: ' + e.data);
-			//var data = e.data;
-			//addMsg(data);
+			console.log('서버로 부터 받은 메세지: ' + e.data);
+			addMsg(e.data);
 		};
 		
 		ws.onclose = function(){
 			console.log('연결 종료');
 		};
 	}
+	//받은 메세지 채팅영역에 표시
+	function addMsg(msg){
+		//alert(msg);
+		var chat = $('#msgArea').val();
+		chat = chat + "\n" + msg;
+		$('#msgArea').val(chat);
+	}
+	
+	
 	
 	
 	$(function(){		
@@ -88,13 +96,6 @@
 		ws.send(JSON.stringify(msg));
 	}
 	
-	//받은 메세지 채팅영역에 표시
-	function addMsg(msg){
-		alert(msg);
-		var chat = $('#msgArea').val();
-		chat = chat + "\n" + msg;
-		$('#msgArea').val(chat);
-	}
 		
 	</script>
 </body>
