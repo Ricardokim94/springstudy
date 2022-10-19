@@ -15,7 +15,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
 @Component
 public class MyHandler extends TextWebSocketHandler { //텍스트를 보낼수 있는 소캣임 ->택스트형식으로 바꿔서 보내야됨
 	
@@ -41,35 +40,26 @@ public class MyHandler extends TextWebSocketHandler { //텍스트를 보낼수 �
 		
 		String msg = (String) message.getPayload(); //클라이언트가 보낸것
 		JSONObject obj = new JSONObject(msg);		//json형태로 바꾼것
-				
-//		Iterator it = obj.keys();
-//		while(it.hasNext()) {
-//			String key = (String)it.next();			
-//			log.info("key:" + key + ", value:" + obj.getString(key));						
-//		}
 		
-		String type = obj.getString("type");
-		if(obj != null && type.equals("register")) {
-			String user = obj.getString("userid");
-			userMap.put(user, session); //user에 session값 저장
-		}else if(type.equals("chat")) { //chat 이면 대화방에 메세지 보내는것으로 정함
-			String target = obj.getString("target");	//받는사람의 타겟을 가져옴 /받는 사람의 id가 target임
-			WebSocketSession ws = userMap.get(target); 
-			if(ws !=null) {
-				String sendMsg = "[" + target + "]" + obj.getString("message");
-				ws.sendMessage(new TextMessage(sendMsg));
-			}	//ws이 null이 아니면 소켓에 연결이 되어 있는거임
+		Iterator it = obj.keys();
+		while(it.hasNext()) {
+			String key = (String)it.next();			
+			log.info("key:" + key + ", value:" + obj.getString(key));						
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+//		String type = obj.getString("type");
+//		if(obj != null && type.equals("register")) {
+//			String user = obj.getString("userid");
+//			userMap.put(user, session); //user에 session값 저장
+//		}else if(type.equals("chat")) { //chat 이면 대화방에 메세지 보내는것으로 정함
+//			String target = obj.getString("target");	//받는사람의 타겟을 가져옴 /받는 사람의 id가 target임
+//			WebSocketSession ws = userMap.get(target); 
+//			if(ws !=null) {
+//				String sendMsg = "[" + target + "]" + obj.getString("message");
+//				ws.sendMessage(new TextMessage(sendMsg));
+//			}	//ws이 null이 아니면 소켓에 연결이 되어 있는거임
+//		}
+	}
 		
 		/*		
 		String type = obj.getString("type");
@@ -88,7 +78,7 @@ public class MyHandler extends TextWebSocketHandler { //텍스트를 보낼수 �
 			}
 		}
 		*/
-	}
+	
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
